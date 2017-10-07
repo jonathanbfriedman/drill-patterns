@@ -57,7 +57,7 @@ class DrillPattern(object):
 
     def path_length(path):
         """
-        Returns the path length (Euclidean distance)
+        Returns the path length (Euclidean distance) along an array of 2D points.
         Ignores difference between start and end position
         """
         length = 0
