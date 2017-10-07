@@ -24,7 +24,10 @@ class TestDrillPatternMethods(unittest.TestCase):
         for i in range(array_len):
             if np.array_equal(array[i], shuffled[i]):
                 count += 1
-        self.assertEqual(count, array_len//2)
+
+        # Assert that at least half the elements remain unchanged
+        # (a shuffle could result in no changes)
+        self.assertTrue(count > array_len//2)
 
 if __name__ == '__main__':
         unittest.main()
