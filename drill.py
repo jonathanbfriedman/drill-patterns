@@ -45,14 +45,13 @@ class DrillPattern(object):
         i_order = [] # initial order
         for el in subar:
             # Find its index
-            i = np.asarray(np.where(ar == el)).T[0][0]
+            i = ar.tolist().index(el.tolist())
             i_order += [i]
         i_order = np.sort(np.array(i_order))
 
         # Traverse original array, replacing any shuffled elements
         shuffled_ar = np.copy(ar)
         for i in range(num):
-            if i in i_order:
                 shuffled_ar[i_order[i]] = subar[i]
         return shuffled_ar
 
@@ -103,10 +102,12 @@ class DrillPattern(object):
 
             # 2. Mutation
             # Mutate according to mutation rate
+            mutated_path_set = []
             for j in range(population):
-                mutated_path_set = self.shuffle_p(path_set[j], mutations)
+                mutated_path_set += [self.shuffle_p(path_set[j], mutations)]
 
             # 3. Selection
             # Select the shortest path (in case of tie, pick first)
             path = self.shortest_path(mutated_path_set, population)
+            generations = generations - 1
         return path
