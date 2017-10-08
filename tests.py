@@ -27,7 +27,7 @@ class TestDrillPatternMethods(unittest.TestCase):
 
         # Assert that at least half the elements remain unchanged
         # (a shuffle could result in no changes)
-        self.assertTrue(count > array_len//2)
+        self.assertTrue(count >= array_len//2)
 
     def test_path_length(self):
         # Path is three sides of a square of size 1
