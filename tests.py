@@ -29,6 +29,14 @@ class TestDrillPatternMethods(unittest.TestCase):
         # (a shuffle could result in no changes)
         self.assertTrue(count >= array_len//2)
 
+    def test_shuffle_p_bug(self):
+        # Test to debug issue with elements being copied twice
+        # after shuffling
+        array = np.array([[1,1],[2,2],[1,2],[2,1]])
+        shuffled = DrillPattern.shuffle_p(array, 75)
+        for el in array:
+            self.assertIn(el.tolist(), shuffled.tolist())
+
     def test_path_length(self):
         # Path is three sides of a square of size 1
         path = np.array([[1,1],[1,2],[2,2],[2,1]])
