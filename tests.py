@@ -61,7 +61,7 @@ class TestDrillPatternMethods(unittest.TestCase):
         # TODO: Mutation rate of 25 should work
         path = np.array([[1,1],[2,2],[1,2],[2,1]])
         dp = DrillPattern(path)
-        optimal_path = dp.calculate_path(mutations=100)
+        optimal_path = dp.calculate_path(mutations=50)
         length1 = path_length(path)
         length2 = path_length(optimal_path)
         self.assertTrue(length2 < length1)
