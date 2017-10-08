@@ -61,9 +61,10 @@ class DrillPattern(object):
         Ignores difference between start and end position
         """
         length = 0
-        for i in range(1,len(path)-1):
+        for i in range(len(path)-1):
             length += np.sqrt(
-                    (path(i)[0]-path(i+1)[0])**2 + (path(i)[1]-path(i+1)[1])**2)
+                    (path[i][0]-path[i+1][0])**2 + (path[i][1]-path[i+1][1])**2)
+        return length
 
     def shortest_path(path_array, population=POPULATION):
         """
