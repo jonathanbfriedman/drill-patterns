@@ -103,7 +103,6 @@ class DrillPattern(object):
 
             # 2. Mutation
             # Mutate according to mutation rate
-            pdb.set_trace()
             for j in range(population):
                 mutated_path_set = self.shuffle_p(path_set[j], mutations)
 
