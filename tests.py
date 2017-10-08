@@ -35,5 +35,15 @@ class TestDrillPatternMethods(unittest.TestCase):
         length = DrillPattern.path_length(path)
         self.assertEqual(length, 3)
 
+    def test_shortest_path(self):
+        # Points are four vertices of a square of size 1
+        path1 = np.array([[1,1],[1,2],[2,2],[2,1]])
+        path2 = np.array([[1,1],[2,2],[1,2],[2,1]])
+
+        length1 = DrillPattern.path_length(path1)
+        length2 = DrillPattern.path_length(path2)
+        self.assertTrue(length1 < length2)
+
+
 if __name__ == '__main__':
         unittest.main()
