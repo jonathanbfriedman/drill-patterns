@@ -88,7 +88,7 @@ class DrillPattern(object):
             print(INIT_ERROR_MSG)
             raise err
 
-        # Check that
+        # Check that the input is a 2D array with 2 columns
         shape = path.shape
         if len(shape) == 2:
             if shape[1] == 2:
