@@ -103,8 +103,11 @@ class DrillPattern(object):
             # 2. Mutation
             # Mutate according to mutation rate
             mutated_path_set = []
-            for j in range(population):
+            for j in range(population-1):
                 mutated_path_set += [shuffle_p(path_set[j], mutations)]
+
+            # Keep the optimal path from the last generation to prevent devolution
+            np.append(mutated_path_set, optimal_path)
 
             # 3. Selection
             # Select the shortest path (in case of tie, pick first)
