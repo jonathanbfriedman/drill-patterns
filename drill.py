@@ -92,13 +92,13 @@ class DrillPattern(object):
         path = self.path
 
         # Iterate over generations
+        optimal_path = path
         while generations > 0:
-
             # 1. Reproduction
             # Create number of copies of current path based on population size
             path_set = []
             for i in range(population):
-                path_set += [path]
+                path_set += [optimal_path]
 
             # 2. Mutation
             # Mutate according to mutation rate
@@ -108,6 +108,6 @@ class DrillPattern(object):
 
             # 3. Selection
             # Select the shortest path (in case of tie, pick first)
-            path = self.shortest_path(mutated_path_set, population)
+            optimal_path = self.shortest_path(mutated_path_set, population)
             generations = generations - 1
-        return path
+        return optimal_path
