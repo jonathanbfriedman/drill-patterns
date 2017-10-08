@@ -4,20 +4,23 @@ import unittest
 import numpy as np
 
 from drill import DrillPattern
+from drill import shuffle_p
+from drill import path_length
+from drill import shortest_path
 
 class TestDrillPatternMethods(unittest.TestCase):
 
     def test_shuffle_p_no_shuffle(self):
         # if p = 0, no shuffling should take place
         array = np.array([[1,2],[3,4],[5,6]])
-        shuffled = DrillPattern.shuffle_p(array, 0)
+        shuffled = shuffle_p(array, 0)
         self.assertTrue(np.array_equal(shuffled, array))
 
     def test_shuffle_p_50_percent_shuffle(self):
         # if p = 50, then half of all elements should change
         array = np.array([[1,2],[3,4],[5,6],[7,8]])
         array_len = len(array)
-        shuffled = DrillPattern.shuffle_p(array, 50)
+        shuffled = shuffle_p(array, 50)
 
         # Count how many elements are the same
         count = 0
@@ -33,14 +36,14 @@ class TestDrillPatternMethods(unittest.TestCase):
         # Test to debug issue with elements being copied twice
         # after shuffling
         array = np.array([[1,1],[2,2],[1,2],[2,1]])
-        shuffled = DrillPattern.shuffle_p(array, 75)
+        shuffled = shuffle_p(array, 75)
         for el in array:
             self.assertIn(el.tolist(), shuffled.tolist())
 
     def test_path_length(self):
         # Path is three sides of a square of size 1
         path = np.array([[1,1],[1,2],[2,2],[2,1]])
-        length = DrillPattern.path_length(path)
+        length = path_length(path)
         self.assertEqual(length, 3)
 
     def test_shortest_path(self):
@@ -48,19 +51,21 @@ class TestDrillPatternMethods(unittest.TestCase):
         path1 = np.array([[1,1],[1,2],[2,2],[2,1]])
         path2 = np.array([[1,1],[2,2],[1,2],[2,1]])
 
-        length1 = DrillPattern.path_length(path1)
-        length2 = DrillPattern.path_length(path2)
+        length1 = path_length(path1)
+        length2 = path_length(path2)
         self.assertTrue(length1 < length2)
 
     def test_calculate_path(self):
         # Points are four vertices of a square of size 1
         # Shortest path_length should be 3
+        # TODO: Mutation rate of 25 should work
         path = np.array([[1,1],[2,2],[1,2],[2,1]])
         dp = DrillPattern(path)
-        optimal_path = dp.calculate_path()
-        length1 = DrillPattern.path_length(path)
-        length2 = DrillPattern.path_length(optimal_path)
+        optimal_path = dp.calculate_path(mutations=100)
+        length1 = path_length(path)
+        length2 = path_length(optimal_path)
         self.assertTrue(length2 < length1)
+        self.assertEqual(length2, 3)
 
 if __name__ == '__main__':
         unittest.main()
