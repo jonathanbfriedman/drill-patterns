@@ -6,7 +6,6 @@ GENERATIONS=100 # Number of generations
 POPULATION=30 # Size of population
 MUTATIONS=25 # Percent mutation rate
 
-
 def shuffle_p(ar, p=100):
     """
     Shuffle an array along first axis changing
@@ -69,6 +68,7 @@ def shortest_path(path_array):
             shortest_path = path
     return shortest_path
 
+
 class DrillPattern(object):
     """
     Class for computing order of drilling paths
@@ -89,7 +89,7 @@ class DrillPattern(object):
         to drill all holes (least total time, least total distance)
         """
         # Start by choosing a path in the same order as the points are given
-        path = self.path
+        path = np.asarray(self.path)
 
         # Iterate over generations
         optimal_path = path
