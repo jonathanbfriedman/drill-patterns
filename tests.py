@@ -29,5 +29,11 @@ class TestDrillPatternMethods(unittest.TestCase):
         # (a shuffle could result in no changes)
         self.assertTrue(count > array_len//2)
 
+    def test_path_length(self):
+        # Path is three sides of a square of size 1
+        path = np.array([[1,1],[1,2],[2,2],[2,1]])
+        length = DrillPattern.path_length(path)
+        self.assertEqual(length, 3)
+
 if __name__ == '__main__':
         unittest.main()
