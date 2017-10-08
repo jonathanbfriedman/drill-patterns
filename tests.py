@@ -67,5 +67,12 @@ class TestDrillPatternMethods(unittest.TestCase):
         self.assertTrue(length2 < length1)
         self.assertEqual(length2, 3)
 
+
+class TestDrillPatternInit(unittest.TestCase):
+
+    def test_1D_list_error(self):
+        array = np.array([1,2,3,4,5,6,7,8])
+        self.assertRaises(ValueError, DrillPattern, array)
+
 if __name__ == '__main__':
         unittest.main()
