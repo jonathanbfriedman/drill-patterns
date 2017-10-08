@@ -4,7 +4,7 @@ import numpy as np
 
 GENERATIONS=100 # Number of generations
 POPULATION=30 # Size of population
-MUTATIONS=10 # Percent mutation rate
+MUTATIONS=25 # Percent mutation rate
 
 class DrillPattern(object):
     """
@@ -19,7 +19,8 @@ class DrillPattern(object):
         """
         self.path = path
 
-    def shuffle_p(ar, p=100):
+    @classmethod
+    def shuffle_p(cls, ar, p=100):
         """
         Shuffle an array along first axis changing
         only p percent of the array.
@@ -55,7 +56,8 @@ class DrillPattern(object):
                 shuffled_ar[i_order[i]] = subar[i]
         return shuffled_ar
 
-    def path_length(path):
+    @classmethod
+    def path_length(cls, path):
         """
         Returns the path length (Euclidean distance) along an array of 2D points.
         Ignores difference between start and end position
@@ -66,7 +68,8 @@ class DrillPattern(object):
                     (path[i][0]-path[i+1][0])**2 + (path[i][1]-path[i+1][1])**2)
         return length
 
-    def shortest_path(path_array, population=POPULATION):
+    @classmethod
+    def shortest_path(cls, path_array, population=POPULATION):
         """
         Returns the shortest path (Euclidean distance)
         Ignores difference between start and end position
@@ -74,7 +77,7 @@ class DrillPattern(object):
         shortest_length = np.inf
         for i in range(1,population):
             path = path_array[i]
-            length = path_length(path)
+            length = cls.path_length(path)
             if length < shortest_length:
                 shortest_length = length
                 shortest_path = path
@@ -95,15 +98,16 @@ class DrillPattern(object):
             # 1. Reproduction
             # Create number of copies of current path based on population size
             path_set = []
-            for i in population:
+            for i in range(population):
                 path_set += [path]
 
             # 2. Mutation
             # Mutate according to mutation rate
-            for j in population:
-                mutated_path_set = shuffle_p(path_set[j], mutations)
+            pdb.set_trace()
+            for j in range(population):
+                mutated_path_set = self.shuffle_p(path_set[j], mutations)
 
             # 3. Selection
             # Select the shortest path (in case of tie, pick first)
-            path = shortest_path(mutated_path_set)
+            path = self.shortest_path(mutated_path_set, population)
         return path
