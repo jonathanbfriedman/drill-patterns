@@ -6,6 +6,8 @@ GENERATIONS=100 # Number of generations
 POPULATION=30 # Size of population
 MUTATIONS=25 # Percent mutation rate
 
+INIT_ERROR_MSG="Class must be initialized with 2D array of points."
+
 def shuffle_p(ar, p=100):
     """
     Shuffle an array along first axis changing
@@ -80,7 +82,22 @@ class DrillPattern(object):
         """
         Perform validation on input
         """
-        self.path = path
+        try:
+            path = np.array(path)
+        except ValueError as err:
+            print(INIT_ERROR_MSG)
+            raise err
+
+        # Check that
+        shape = path.shape
+        if len(shape) == 2:
+            if shape[1] == 2:
+                self.path = path
+                return
+
+        # Else raise an error
+        print(INIT_ERROR_MSG)
+        raise ValueError
 
     def calculate_path(self, generations=GENERATIONS,
             population=POPULATION, mutations=MUTATIONS):
@@ -89,7 +106,7 @@ class DrillPattern(object):
         to drill all holes (least total time, least total distance)
         """
         # Start by choosing a path in the same order as the points are given
-        path = np.asarray(self.path)
+        path = self.path
 
         # Iterate over generations
         optimal_path = path
