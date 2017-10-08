@@ -13,11 +13,11 @@ class DrillPattern(object):
     Output:
     """
 
-    def __init__(self, points):
+    def __init__(self, path):
         """
         Perform validation on input
         """
-        return
+        self.path = path
 
     def shuffle_p(ar, p=100):
         """
@@ -87,7 +87,7 @@ class DrillPattern(object):
         to drill all holes (least total time, least total distance)
         """
         # Start by choosing a path in the same order as the points are given
-        path = points
+        path = self.path
 
         # Iterate over generations
         while generations > 0:
