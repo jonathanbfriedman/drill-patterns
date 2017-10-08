@@ -80,7 +80,7 @@ class DrillPattern(object):
                 shortest_path = path
         return shortest_path
 
-    def calculate_path(generations=GENERATIONS,
+    def calculate_path(self, generations=GENERATIONS,
             population=POPULATION, mutations=MUTATIONS):
         """
         Uses evolutionary algorithm to find best path
