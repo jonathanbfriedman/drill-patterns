@@ -2,9 +2,9 @@
 
 import numpy as np
 
-GENERATIONS=100 # Number of generations
-POPULATION=30 # Size of population
-MUTATIONS=25 # Percent mutation rate
+GENERATIONS=10 # Number of generations
+POPULATION=10 # Size of population
+MUTATIONS=100 # Percent mutation rate
 
 INIT_ERROR_MSG="Class must be initialized with 2D array of points."
 
