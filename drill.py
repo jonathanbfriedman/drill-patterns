@@ -15,33 +15,24 @@ def shuffle_p(ar, p=100):
     """
     # Calculate the number of elements to shuffle
     array_len = len(ar)
-    num = array_len*p//100
+    num = array_len*p/100
 
     # Return original array in case of no change
     if num == 0:
         return ar
 
-    # Randomly select a subarray to randomly shuffle
-    r_indices = np.random.choice(range(array_len), num, False)
-    subar = np.array([[]])
-    for r_i in r_indices:
-        subar = np.append([[subar]], [[np.copy(ar[r_i])]])
+    # Randomly choose pairs of indices to shuffle
+    r_indices = np.random.choice(np.arange(array_len), [int(num/2),2], False)
 
-    subar = np.reshape(subar, (num,2))
-
-    # Generate new array with p percent randomized
-    # Collect the indices of each subarray element in the original array
-    i_order = [] # initial order
-    for el in subar:
-        # Find its index
-        i = ar.tolist().index(el.tolist())
-        i_order += [i]
-    i_order = np.sort(np.array(i_order))
-
-    # Traverse original array, replacing any shuffled elements
     shuffled_ar = np.copy(ar)
-    for i in range(num):
-            shuffled_ar[i_order[i]] = subar[i]
+
+    # Iterate over indices of points to shuffle and use matrix multiplication to swap
+    # points in original array
+    for r_i in r_indices:
+        identity = np.identity(array_len)
+        identity[r_i,:] = identity[r_i[::-1],:]
+        shuffled_ar = np.dot(identity,shuffled_ar)
+
     return shuffled_ar
 
 def path_length(path):
