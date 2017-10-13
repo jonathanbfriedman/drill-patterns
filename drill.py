@@ -17,6 +17,7 @@ def shuffle_p(ar, p=100):
     array_len = len(ar)
     num = array_len*p//100
 
+    # Return original array in case of no change
     if num == 0:
         return ar
 
